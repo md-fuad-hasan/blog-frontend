@@ -1,5 +1,9 @@
 import React, { Component } from "react";
-
+import Header from "./Header/Header";
+import { Navigate, Route, Routes } from "react-router";
+import Login from "./Auth/Login";
+import Signup from "./Auth/SignUp";
+import Blog from "./Blog/Blog";
 
 class Main extends Component{
 
@@ -7,11 +11,13 @@ class Main extends Component{
 
         return(
             <div>
-                <div className="container">
-
-                    <h2>This is a blog website</h2>
-
-                </div>
+                <Header />
+                <Routes>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
+                    <Route path="/" exact element={<Blog />} />
+                    <Route path="*" element={<Navigate to="/" />} />
+                </Routes>
             </div>
         );
     }
