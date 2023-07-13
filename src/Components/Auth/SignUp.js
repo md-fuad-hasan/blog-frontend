@@ -1,9 +1,69 @@
 import React from "react";
+import { Formik, Form, Field,ErrorMessage } from "formik";
+import './Login.css';
+import { Link } from "react-router-dom";
 
 const Signup = ()=>{
     return(
         <div>
-            <h2>This is Signup Page</h2>
+             <div className="all-form">
+            <Formik
+                initialValues={{
+                    email:'',
+                    username:'',
+                    password:'',
+                    confirmedPassword:''
+                }}
+                validate={values => {
+                    const errors = {};
+                    if (!values.email) {
+                      errors.email = 'Email is Required';
+                    } else if (
+                      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+                    ) {
+                      errors.email = 'Invalid email address';
+                    }
+                    if(!values.username){
+                        errors.username="Username is required"
+                    }
+                    if(values.password.length<6){
+                        errors.password = "Password must be 6 character or above"
+                    }
+                    if(values.password!==values.confirmedPassword){
+                        errors.confirmedPassword = "Passwod don't matched"
+                    }
+                    return errors;
+                  }}
+                onSubmit={(values)=>{
+                    console.log(values);
+                }}
+            
+            >
+            {
+                ()=>(
+                    <div className="login-contain">
+                        <h2>Create an account</h2>
+                        <Form className="login-form form">
+                            <Field  type="email" name="email" className="form-control" placeholder="Email Address" />
+                            <ErrorMessage name="email" component="div" style={{color:"red"}}/>
+                            <br/>
+                            <Field  type="text" name="username" className="form-control" placeholder="Username" />
+                            <ErrorMessage name="username" component="div" style={{color:"red"}}/>
+                            <br/>
+                            <Field  type="password" name="password" className="form-control" placeholder="Password" />
+                            <ErrorMessage name="password" component="div" style={{color:"red"}}/>
+                            <br/>
+                            <Field  type="Password" name="confirmedPassword" className="form-control" placeholder="Confirmation Password" />
+                            <ErrorMessage name="confirmedPassword" component="div" style={{color:"red"}}/>
+                            <br/>
+                            <button type="submit" className="btn btn-primary login">SignUp</button>
+                        </Form>
+                        <p>Have you an account? <Link to="/login" style={{textDecoration:"none"}}>Login</Link></p>
+                    </div>
+                )
+            }
+            </Formik>
+            </div>
         </div>
     );
 }
