@@ -1,9 +1,15 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React from "react";
 import './Login.css';
-import { Link } from "react-router-dom";
+import { Link,  } from "react-router-dom";
+
+import { useDispatch, } from "react-redux";
+import { login_user } from "../../redux/authActionCreators";
 
 const Login = ()=>{
+    const dispatch = useDispatch();
+
+
     return(
         
             
@@ -26,7 +32,8 @@ const Login = ()=>{
                     return errors;
                   }}
                 onSubmit={(values)=>{
-                    console.log(values);
+                    dispatch(login_user(values.username, values.password));
+
                 }}
             
             >
@@ -36,7 +43,7 @@ const Login = ()=>{
                         <h2>Login Page</h2>
                         <Form className="login-form form">
                            
-                            <Field  type="text" name="username" className="form-control" placeholder="Username" />
+                            <Field  type="text" name="username" className="form-control" placeholder="Username Or Email" />
                             <ErrorMessage name="username" component="div" style={{color:"red"}}/>
                             <br/>
                             <Field  type="password" name="password" className="form-control" placeholder="Password" />

@@ -1,9 +1,17 @@
 import React from "react";
 import { Formik, Form, Field,ErrorMessage } from "formik";
 import './Login.css';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { signup_user } from "../../redux/authActionCreators";
 
 const Signup = ()=>{
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const signupSuccess = useSelector(state=>state.signupSuccess);
+    if(signupSuccess){
+        navigate('/login');
+    }
     return(
         <div>
              <div className="all-form">
@@ -35,7 +43,8 @@ const Signup = ()=>{
                     return errors;
                   }}
                 onSubmit={(values)=>{
-                    console.log(values);
+                        
+                    dispatch(signup_user(values.email, values.username, values.password));
                 }}
             
             >

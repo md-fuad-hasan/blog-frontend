@@ -3,8 +3,36 @@ import { NavLink } from 'react-router-dom';
 import { Navbar, NavbarBrand, Nav, NavItem,Collapse, NavbarToggler } from 'reactstrap';
 import './Header.css';
 import Logo from '../../asset/Logo/blogger-logo.jpg';
+import { useSelector } from 'react-redux';
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const token = useSelector(state=>state.token);
+  const username = useSelector(state=>state.username);
+
+  let links = null;
+  if(token===null){
+    links = <Nav className='ms-auto me-md-5' navbar>
+        <NavItem>
+            <NavLink to="/login" className='NavLink'>Login</NavLink>
+        </NavItem>
+        <NavItem>
+            <NavLink to="/signup" className='NavLink'>SignUp</NavLink>
+        </NavItem>
+        
+    </Nav>
+  }else{
+
+    links = <Nav className='ms-auto me-md-5' navbar>
+              <NavItem>
+                  <NavLink to="/user" className='NavLink'>{username}</NavLink>
+              </NavItem>
+              <NavItem>
+                  <NavLink to="/logout" className='NavLink'>Logout</NavLink>
+              </NavItem>
+            
+            </Nav>
+
+  }
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
@@ -20,15 +48,7 @@ const Header = () => {
 
             <NavbarToggler onClick={toggleNavbar} />
             <Collapse isOpen={isOpen} navbar >
-                <Nav className='ms-auto me-md-5' navbar>
-                <NavItem>
-                    <NavLink to="/login" className='NavLink'>Login</NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink to="/signup" className='NavLink'>SignUp</NavLink>
-                </NavItem>
-                
-                </Nav>
+                {links}
             </Collapse>
 
         </Navbar>
