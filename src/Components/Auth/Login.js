@@ -40,7 +40,7 @@ const Login = ()=>{
             {
                 ({errors})=>(
                     <div className="login-contain">
-                        <h2>Login Page</h2>
+                        <h2 className="text-center">Login Page</h2>
                         <Form className="login-form form">
                            
                             <Field  type="text" name="username" className="form-control" placeholder="Username Or Email" />
@@ -51,7 +51,7 @@ const Login = ()=>{
                             <br/>
                             <button type="submit" className="btn btn-primary login">Login</button>
                         </Form>
-                        <p>Don't have you an account? <Link to="/signup" style={{textDecoration:"none"}}>SignUp</Link></p>
+                        <p className="text-center">Don't have you an account? <Link to="/signup" style={{textDecoration:"none"}}>SignUp</Link></p>
                     </div>
                 )
             }

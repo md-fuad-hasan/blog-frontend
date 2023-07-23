@@ -1,36 +1,39 @@
 import React, { useEffect } from "react";
 import Header from "./Header/Header";
-import { Navigate, Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./Auth/Login";
 import Signup from "./Auth/SignUp";
-import Blog from "./Blog/Blog";
+import BlogList from "./Blog/BlogList";
 import { useDispatch, useSelector } from "react-redux";
 import Logout from "./Auth/Logout";
 import { auth_check } from "../redux/authActionCreators";
 import MyUser from "./UserDetail/MyUser";
+import { blog_list } from "../redux/actionCreators";
+import BlogDetail from "./Blog/BlogDetail";
 
 const Main =()=>{
     const dispatch = useDispatch();
-   
     useEffect(()=>{
         dispatch(auth_check());
-
-    })
+        dispatch(blog_list());
+    },[])
 
     const token = useSelector(state=>state.token);
     let roots = null;
     if(token===null){
         roots = (<Routes>
+                    <Route path="/" exact element={<BlogList />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
-                    <Route path="/" exact element={<Blog />} />
+                    <Route path="/blog/:slug" element={<Navigate to="/login"/>}  />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>)
     }else{
         roots = (<Routes>
+                    <Route path="/" exact element={<BlogList />} />
                     <Route path="/logout" element={<Logout /> } />
-                    <Route path="/user" element={<MyUser /> } />
-                    <Route path="/" exact element={<Blog />} />
+                    <Route path="/users/:username" element={<MyUser /> } />
+                    <Route path="/blog/:slug" element={<BlogDetail /> } />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>)
     }

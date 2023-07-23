@@ -2,8 +2,39 @@ import jwtDecode from 'jwt-decode';
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
+const profile_detail_store=(bio,fullname,profile_pic)=>{
+    return{
+        type:actionTypes.PROFILE_DETAIL,
+        payload:{
+            bio:bio,
+            fullname: fullname,
+            profile_pic: profile_pic,
+        }
+    }
+}
+
+const profile_detail=(userId)=>dispatch=>{
+    const url = `http://127.0.0.1:8000/api/account-detail/${userId}/`
+    axios.get(url)
+        .then(res=>{
+            const bio = res.data.bio;
+            const fullname = res.data.fullname
+            const profile_pic = res.data.profile_pic
+            dispatch(profile_detail_store(bio,fullname,profile_pic));
+        })
+        .catch(err=>{
+            dispatch(profile_detail_store(null,null,null));
+        })
+    
+   
+    
+    
+}
 
 const login_success=(token, userId,username)=>{
+
+    
+
     return {
         type: actionTypes.LOGIN_SUCCESS,
         payload: {
@@ -80,7 +111,7 @@ export const login_user = (username,password) =>dispatch=> {
             const token = res.data.access;
             const userId = store_locally(token,username);
             dispatch(login_success(token,userId,username));
-
+            dispatch(profile_detail(userId));
           
             
         })
@@ -115,6 +146,8 @@ export const auth_check =()=>dispatch=>{
         }
         else{
             dispatch(login_success(token,userId,username));
+            dispatch(profile_detail(userId));
+
         }
     }
 }

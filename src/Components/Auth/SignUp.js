@@ -51,7 +51,7 @@ const Signup = ()=>{
             {
                 ()=>(
                     <div className="login-contain">
-                        <h2>Create an account</h2>
+                        <h2 className="text-center">Create an account</h2>
                         <Form className="login-form form">
                             <Field  type="email" name="email" className="form-control" placeholder="Email Address" />
                             <ErrorMessage name="email" component="div" style={{color:"red"}}/>
@@ -67,7 +67,7 @@ const Signup = ()=>{
                             <br/>
                             <button type="submit" className="btn btn-primary login">SignUp</button>
                         </Form>
-                        <p>Have you an account? <Link to="/login" style={{textDecoration:"none"}}>Login</Link></p>
+                        <p className="text-center">Have you an account? <Link to="/login" style={{textDecoration:"none"}}>Login</Link></p>
                     </div>
                 )
             }

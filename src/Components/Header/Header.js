@@ -8,6 +8,8 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const token = useSelector(state=>state.token);
   const username = useSelector(state=>state.username);
+  const bio = useSelector(state=>state.bio);
+ 
 
   let links = null;
   if(token===null){
@@ -24,7 +26,7 @@ const Header = () => {
 
     links = <Nav className='ms-auto me-md-5' navbar>
               <NavItem>
-                  <NavLink to="/user" className='NavLink'>{username}</NavLink>
+                  <NavLink to={`/users/${username}`} className='NavLink'>{username}</NavLink>
               </NavItem>
               <NavItem>
                   <NavLink to="/logout" className='NavLink'>Logout</NavLink>
