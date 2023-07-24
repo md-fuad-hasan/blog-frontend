@@ -16,8 +16,8 @@ const MyUser = () =>{
                         <div >
                             {
                             (profile_pic)?
-                            <img src={profile_pic} alt="Profile Picture" className="image rounded" width="120px" />:
-                            <img src={pro_pic} alt="Profile Picture" className="image rounded" width="120px" />
+                            <img src={profile_pic} alt="Profile Pic" className="image rounded" width="120px" />:
+                            <img src={pro_pic} alt="Profile Pic" className="image rounded" width="120px" />
                             }
                             
                         </div>

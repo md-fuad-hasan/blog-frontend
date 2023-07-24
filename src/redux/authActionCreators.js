@@ -126,6 +126,7 @@ export const logout_user = ()=>{
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
     localStorage.removeItem('expirationTime');
+    localStorage.removeItem('username');
 
     return{
         type: actionTypes.LOGOUT_SUCCESS

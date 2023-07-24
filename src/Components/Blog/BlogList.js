@@ -4,6 +4,7 @@ import Blog from "./Blog";
 
 const BlogList = ()=>{
     const blog_list = useSelector(state=>state.blog_list);
+    console.log(blog_list);
     let blog =null;
     if(blog_list.length===0){
 
@@ -11,6 +12,8 @@ const BlogList = ()=>{
         blog = blog_list.map(blog=>{
             return <Blog 
                 title = {blog.blog_title}
+                author = {blog.author_name}
+                update_date = {blog.update_date}
                 content = {blog.blog_content}
                 image = {blog.blog_image}
                 slug = {blog.slug}

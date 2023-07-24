@@ -16,7 +16,7 @@ const Main =()=>{
     useEffect(()=>{
         dispatch(auth_check());
         dispatch(blog_list());
-    },[])
+    })
 
     const token = useSelector(state=>state.token);
     let roots = null;

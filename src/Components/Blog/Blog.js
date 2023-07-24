@@ -1,7 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import date from 'date-and-time';
 
 const Blog = (props)=>{
+    let update_date = props.update_date;
+    update_date = new Date(update_date).toDateString();
+    ;
     return(
         <div >
             <div className="row shadow-sm p-3 mb-5 bg-body rounded">
@@ -9,8 +13,10 @@ const Blog = (props)=>{
                     <img src={props.image} alt="blog " width="100%"/>
                 </div>
                 <div className="col-md-8">
-                    <h2>{props.title}</h2>
-                    <p>{props.content.slice(0,500)}<Link to={`/blog/${props.slug}`}>See More</Link></p>
+                    <h1>{props.title}</h1>
+                    <h5>by {props.author} | {update_date}</h5>
+                    <br />
+                    <p>{props.content.slice(0,500)+"...." }<Link to={`/blog/${props.slug}`} className="text-decoration-none"> See More</Link></p>
                 </div>
 
             </div>

@@ -8,7 +8,6 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const token = useSelector(state=>state.token);
   const username = useSelector(state=>state.username);
-  const bio = useSelector(state=>state.bio);
  
 
   let links = null;
@@ -43,6 +42,7 @@ const Header = () => {
   return (
     <div className='Navigation'>
         <Navbar  className='Navi py-2 py-xxl-3' expand="md" >
+          
      
             <NavbarBrand href="/" className='ms-md-5 Brand'>
                 <img src={Logo} alt='Logo' width="70px" />
