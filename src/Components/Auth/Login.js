@@ -3,11 +3,15 @@ import React from "react";
 import './Login.css';
 import { Link,  } from "react-router-dom";
 
-import { useDispatch, } from "react-redux";
-import { login_user } from "../../redux/authActionCreators";
+import { useDispatch, useSelector, } from "react-redux";
+import { login_user, signup_finished } from "../../redux/authActionCreators";
 
 const Login = ()=>{
     const dispatch = useDispatch();
+    const signupSuccess = useSelector(state=>state.signupSuccess);
+    if(signupSuccess){
+        dispatch(signup_finished())
+    }
 
 
     return(

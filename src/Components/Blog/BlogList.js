@@ -4,7 +4,6 @@ import Blog from "./Blog";
 
 const BlogList = ()=>{
     const blog_list = useSelector(state=>state.blog_list);
-    console.log(blog_list);
     let blog =null;
     if(blog_list.length===0){
 

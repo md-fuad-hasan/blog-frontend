@@ -51,6 +51,13 @@ const signup_success=()=>{
     }
 }
 
+export const signup_finished=()=>{
+    return{
+        type: actionTypes.SIGNUP_FINISHED
+    }
+}
+
+
 
 const store_locally = (token,username)=>{
     const token_decode = jwtDecode(token);

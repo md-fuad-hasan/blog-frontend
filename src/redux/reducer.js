@@ -19,6 +19,11 @@ export const reducer = (state=INITIAL_STATE, action)=>{
                 ...state,
                 signupSuccess : true
             }
+        case actionTypes.SIGNUP_FINISHED:
+            return{
+                ...state,
+                signupSuccess: false
+            }
         case actionTypes.LOGIN_SUCCESS:
             
             return{
