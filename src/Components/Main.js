@@ -19,6 +19,7 @@ const Main =()=>{
     })
 
     const token = useSelector(state=>state.token);
+    const username = useSelector(state=>state.username);
     let roots = null;
     if(token===null){
         roots = (<Routes>
@@ -32,7 +33,7 @@ const Main =()=>{
         roots = (<Routes>
                     <Route path="/" exact element={<BlogList />} />
                     <Route path="/logout" element={<Logout /> } />
-                    <Route path="/users/:username" element={<MyUser /> } />
+                    <Route path= "/users/:username" element={<MyUser /> } />
                     <Route path="/blog/:slug" element={<BlogDetail /> } />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>)

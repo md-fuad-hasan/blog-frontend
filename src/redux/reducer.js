@@ -9,6 +9,7 @@ const INITIAL_STATE = {
     fullname: null,
     profile_pic: null,
     blog_list: [],
+    user_blog_list: [],
 }
 
 
@@ -41,7 +42,9 @@ export const reducer = (state=INITIAL_STATE, action)=>{
                 username : null,
                 bio: null,
                 fullname: null,
-                profile_pic: null
+                profile_pic: null,
+                user_blog_list: [],
+
             }
         
         case actionTypes.PROFILE_DETAIL:
@@ -57,6 +60,12 @@ export const reducer = (state=INITIAL_STATE, action)=>{
                 ...state,
                 blog_list: action.payload
             }
+        case actionTypes.USER_BLOG_LIST:
+            return{
+                ...state,
+                user_blog_list: action.payload
+            }
+
        
         default:
             return state

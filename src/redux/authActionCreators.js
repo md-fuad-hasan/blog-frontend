@@ -2,6 +2,10 @@ import jwtDecode from 'jwt-decode';
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
+import { user_blog_list } from './actionCreators';
+
+
+
 const profile_detail_store=(bio,fullname,profile_pic)=>{
     return{
         type:actionTypes.PROFILE_DETAIL,
@@ -119,6 +123,7 @@ export const login_user = (username,password) =>dispatch=> {
             const userId = store_locally(token,username);
             dispatch(login_success(token,userId,username));
             dispatch(profile_detail(userId));
+            dispatch(user_blog_list(userId));
           
             
         })
