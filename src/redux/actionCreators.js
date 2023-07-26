@@ -27,11 +27,16 @@ const user_blog=(data)=>{
     }
 }
 
-export const user_blog_list=(userId)=>dispatch=>{
+export const user_blog_list=(userId,token)=>dispatch=>{
     const url = `http://127.0.0.1:8000/api/blog/user/?user=${userId}`;
-    axios.get(url)
+    const header = {
+        headers:{
+            "Authorization": `Bearer ${token}`
+        }
+    }
+    axios.get(url,header)
         .then(res=>{
-            console.log(res.data);
+            
             dispatch(user_blog(res.data));
         })
         .catch(err=>{

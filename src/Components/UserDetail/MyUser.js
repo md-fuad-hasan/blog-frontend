@@ -1,17 +1,27 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import pro_pic from '../../asset/ProPic/images.png';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import pro_pic from '../../asset/ProPic/default_avatar.jpg';
 import Blog from "../Blog/Blog";
+import { Button, Modal, ModalBody, ModalHeader } from "reactstrap";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import axios from "axios";
+import { user_blog_list as user_blog_post,blog_list } from "../../redux/actionCreators";
 
 
 
 
 const MyUser = () =>{
+    const [modal,setModal] = useState(false);
     const profile_pic = useSelector(state=>state.profile_pic);
     const fullname = useSelector(state=>state.fullname);
     const bio = useSelector(state=>state.bio);
     const username = useSelector(state=>state.username)
     const user_blog_list = useSelector(state=>state.user_blog_list);
+    const userId = useSelector(state=>state.userId);
+    const token = useSelector(state=>state.token);
+    const dispatch = useDispatch()
+
+
     let blog =null;
     if(user_blog_list.length===0){
 
@@ -27,6 +37,14 @@ const MyUser = () =>{
                 key = {blog.id}
             />
         })
+    }
+
+    const toggle = () =>setModal(!modal);
+
+    let blogImage = null;
+
+    const handleImage=(e)=>{
+        blogImage = e.target.files[0];
     }
     
     return(
@@ -55,7 +73,86 @@ const MyUser = () =>{
                         </div>
                         <br />
                         <div>
-                            <button className="btn btn-primary w-100">Create a Post</button>
+                            <Button color="primary" onClick={toggle} className="btn w-100">Create a Post</Button>
+                            <Modal isOpen={modal} centered={true}>
+                                <ModalHeader toggle={toggle} >
+                                    <div className="text-center bg-primary d-block">Create Post</div>          
+                                </ModalHeader>
+                                <ModalBody>
+                                    <Formik
+                                        initialValues={{
+                                            title:'',
+                                            content:'',
+                                            image:null,
+                                        }} 
+                                        validate={values => {
+                                            const errors = {};
+                                            if (!values.title) {
+                                              errors.title = 'Title is Invalid';
+                                            }
+                                            if(!values.content){
+                                                errors.content = 'This field is required';
+                                            }
+                                            if(blogImage===null){
+                                                errors.image = 'Image must be included';
+                                            }
+                                            return errors;
+                                          }}
+                                        onSubmit={(values)=>{
+                                            
+                                            let data = new FormData();
+                                            data.append('blog_title',values.title);
+                                            data.append('blog_content',values.content);
+                                            data.append('blog_image',blogImage);
+                                            data.append('author',userId);
+                                            const url = "http://127.0.0.1:8000/api/blog/user/";
+                                            const header = {
+                                                headers:{
+                                                    "Content-Type": "multipart/form-data",
+                                                    "Authorization": `Bearer ${token}`
+                                                }
+                                            }
+                                            axios.post(url,data,header)
+                                                .then(res=>{
+                                                    toggle();
+                                                    dispatch(user_blog_post(userId,token));
+                                                    dispatch(blog_list());
+                                                    
+                                                })
+                                                .catch(err=>{
+                                                    console.log(err);
+                                                })
+                                            
+                                            
+                                        }}
+                                    
+                                    >
+
+                                        {({values,onChange})=>(
+                                            <Form>
+                                                <Field  type="text" name="title" className="form-control" placeholder="Blog Title" />
+                                                <ErrorMessage name="title" component="div" style={{color:"red"}}/>
+
+                                                <br />
+                                                <Field as="textarea" name="content" className="form-control" rows="10" placeholder="Write something what you want to post...." />
+                                                <ErrorMessage name="content" component="div" style={{color:"red"}}/>
+                                                <br />
+                                                <Field type="file" name="image" className="form-control" onChange={handleImage}/>
+                                                <ErrorMessage name="image" component="div" style={{color:"red"}}/>            
+                                                <br />
+                                                <Button type="submit" color="primary" className="w-100">Post</Button>   
+
+                                            </Form>
+                                        )}
+
+                                        
+
+
+                                    </Formik>
+
+                                </ModalBody>
+                                
+                            </Modal>
                         </div>
 
                         

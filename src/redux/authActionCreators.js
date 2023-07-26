@@ -17,9 +17,14 @@ const profile_detail_store=(bio,fullname,profile_pic)=>{
     }
 }
 
-const profile_detail=(userId)=>dispatch=>{
-    const url = `http://127.0.0.1:8000/api/account-detail/${userId}/`
-    axios.get(url)
+const profile_detail=(userId,token)=>dispatch=>{
+    const url = `http://127.0.0.1:8000/api/account-detail/${userId}/`;
+    const header = {
+        headers:{
+            "Authorization": `Bearer ${token}`
+        }
+    }
+    axios.get(url,header)
         .then(res=>{
             const bio = res.data.bio;
             const fullname = res.data.fullname
@@ -122,8 +127,8 @@ export const login_user = (username,password) =>dispatch=> {
             const token = res.data.access;
             const userId = store_locally(token,username);
             dispatch(login_success(token,userId,username));
-            dispatch(profile_detail(userId));
-            dispatch(user_blog_list(userId));
+            dispatch(profile_detail(userId,token));
+            dispatch(user_blog_list(userId,token));
           
             
         })
@@ -159,7 +164,7 @@ export const auth_check =()=>dispatch=>{
         }
         else{
             dispatch(login_success(token,userId,username));
-            dispatch(profile_detail(userId));
+            dispatch(profile_detail(userId,token));
 
         }
     }
