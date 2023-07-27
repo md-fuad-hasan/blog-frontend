@@ -1,32 +1,28 @@
-import React from "react";
-import {  useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import {  useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import BlogDetailShow from "./BlogDetailShow";
+import { blog_detail } from "../../redux/actionCreators";
 
 
 const BlogDetail = () =>{
     const {slug} = useParams();
-   
+    const blog_detail_data = useSelector(state=>state.blog_detail_data);
+    const token = useSelector(state=>state.token);
+    const dispatch = useDispatch();
 
-    const blog_list_detail = useSelector(state=>state.blog_list);
+    useEffect(()=>{
+        dispatch(blog_detail(slug,token));
+    },[]);
 
-    
-    let blog_detail=null;
-    for(let blog of blog_list_detail){
-        if(blog.slug===slug){
-            blog_detail = blog;
-            
-            break;
-        }
-    }
     
     
     let blog = null;
 
-    if(blog_detail===null){
+    if(blog_detail_data===null){
 
     }else{
-        blog = <BlogDetailShow  blog_detail={blog_detail} />
+        blog = <BlogDetailShow  blog_detail={blog_detail_data} />
     }
 
     return(

@@ -36,7 +36,7 @@ const MyUser = () =>{
                 title = {blog.blog_title}
                 author = {blog.author_name}
                 update_date = {blog.update_date}
-                content = {blog.content}
+                content = {blog.blog_content}
                 image = {blog.blog_image}
                 slug = {blog.slug}
                 key = {blog.slug}

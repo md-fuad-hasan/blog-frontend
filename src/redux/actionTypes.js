@@ -7,3 +7,4 @@ export const PROFILE_DETAIL = 'PROFILE_DETAIL';
 
 export const BLOG_LIST = 'BLOG_LIST';
 export const USER_BLOG_LIST = 'USER_BLOG_LIST';
+export const BLOG_DETAIL = 'BLOG_DETAIL';

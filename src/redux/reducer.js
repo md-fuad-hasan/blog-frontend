@@ -10,6 +10,7 @@ const INITIAL_STATE = {
     profile_pic: null,
     blog_list: [],
     user_blog_list: [],
+    blog_detail_data: null
 }
 
 
@@ -44,6 +45,7 @@ export const reducer = (state=INITIAL_STATE, action)=>{
                 fullname: null,
                 profile_pic: null,
                 user_blog_list: [],
+                blog_detail_data: null
 
             }
         
@@ -65,7 +67,11 @@ export const reducer = (state=INITIAL_STATE, action)=>{
                 ...state,
                 user_blog_list: action.payload
             }
-
+        case actionTypes.BLOG_DETAIL:
+            return{
+                ...state,
+                blog_detail_data: action.payload
+            }
        
         default:
             return state
