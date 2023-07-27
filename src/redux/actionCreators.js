@@ -20,6 +20,8 @@ export const blog_list= ()=>dispatch=>{
         })
 }
 
+
+
 const user_blog=(data)=>{
     return{
         type: actionTypes.USER_BLOG_LIST,
@@ -36,7 +38,6 @@ export const user_blog_list=(userId,token)=>dispatch=>{
     }
     axios.get(url,header)
         .then(res=>{
-            
             dispatch(user_blog(res.data));
         })
         .catch(err=>{

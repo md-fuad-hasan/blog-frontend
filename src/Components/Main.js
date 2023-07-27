@@ -13,13 +13,15 @@ import BlogDetail from "./Blog/BlogDetail";
 
 const Main =()=>{
     const dispatch = useDispatch();
+    const token = useSelector(state=>state.token);
+
+    
     useEffect(()=>{
         dispatch(auth_check());
         dispatch(blog_list());
     })
 
-    const token = useSelector(state=>state.token);
-    const username = useSelector(state=>state.username);
+    // const username = useSelector(state=>state.username);
     let roots = null;
     if(token===null){
         roots = (<Routes>

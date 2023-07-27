@@ -13,10 +13,10 @@ const BlogList = ()=>{
                 title = {blog.blog_title}
                 author = {blog.author_name}
                 update_date = {blog.update_date}
-                content = {blog.blog_content}
+                content = {blog.content}
                 image = {blog.blog_image}
                 slug = {blog.slug}
-                key = {blog.id}
+                key = {blog.slug}
             />
         })
     }

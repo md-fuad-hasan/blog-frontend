@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import pro_pic from '../../asset/ProPic/default_avatar.jpg';
 import Blog from "../Blog/Blog";
@@ -22,6 +22,11 @@ const MyUser = () =>{
     const dispatch = useDispatch()
 
 
+    useEffect(()=>{
+       
+        dispatch(user_blog_post(userId,token));
+    },[])
+
     let blog =null;
     if(user_blog_list.length===0){
 
@@ -31,10 +36,11 @@ const MyUser = () =>{
                 title = {blog.blog_title}
                 author = {blog.author_name}
                 update_date = {blog.update_date}
-                content = {blog.blog_content}
+                content = {blog.content}
                 image = {blog.blog_image}
                 slug = {blog.slug}
-                key = {blog.id}
+                key = {blog.slug}
+                
             />
         })
     }
@@ -43,8 +49,16 @@ const MyUser = () =>{
 
     let blogImage = null;
 
+    const isFileImage = (file)=>{
+        return file && file['type'].split('/')[0] === 'image';
+    }
+    let isImage = false;
     const handleImage=(e)=>{
         blogImage = e.target.files[0];
+
+        isImage = isFileImage(blogImage)
+
+        
     }
     
     return(
@@ -76,7 +90,7 @@ const MyUser = () =>{
                             <Button color="primary" onClick={toggle} className="btn w-100">Create a Post</Button>
                             <Modal isOpen={modal} centered={true}>
                                 <ModalHeader toggle={toggle} >
-                                    <div className="text-center bg-primary d-block">Create Post</div>          
+                                    Create Post         
                                 </ModalHeader>
                                 <ModalBody>
                                     <Formik
@@ -93,9 +107,12 @@ const MyUser = () =>{
                                             if(!values.content){
                                                 errors.content = 'This field is required';
                                             }
-                                            if(blogImage===null){
+                                            if(blogImage===null || !isImage){
                                                 errors.image = 'Image must be included';
+
                                             }
+                                        
+
                                             return errors;
                                           }}
                                         onSubmit={(values)=>{
@@ -105,7 +122,8 @@ const MyUser = () =>{
                                             data.append('blog_content',values.content);
                                             data.append('blog_image',blogImage);
                                             data.append('author',userId);
-                                            const url = "http://127.0.0.1:8000/api/blog/user/";
+
+                                            const url = "http://127.0.0.1:8000/api/blog/create/";
                                             const header = {
                                                 headers:{
                                                     "Content-Type": "multipart/form-data",

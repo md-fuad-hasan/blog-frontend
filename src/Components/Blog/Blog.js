@@ -7,7 +7,7 @@ const Blog = (props)=>{
     update_date = new Date(update_date).toDateString();
     ;
     return(
-        <div >
+        <div>
             <div className="row shadow-sm p-3 mb-5 bg-body rounded">
                 <div className="col-md-4">
                     <img src={props.image} alt="blog " width="100%"/>
@@ -16,7 +16,7 @@ const Blog = (props)=>{
                     <h1>{props.title}</h1>
                     <h5>by {props.author} | {update_date}</h5>
                     <br />
-                    <p>{props.content.slice(0,500)+"...." }<Link to={`/blog/${props.slug}`} className="text-decoration-none"> See More</Link></p>
+                    <p>{props.content+"...." }<Link to={`/blog/${props.slug}`} className="text-decoration-none"> See More</Link></p>
                 </div>
 
             </div>

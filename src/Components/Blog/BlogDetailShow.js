@@ -23,7 +23,7 @@ const BlogDetailShow = (props) =>{
 
                     </div>
                     <div className="w-100">
-                        <p>{props.blog_detail.blog_content}</p>
+                        <p>{props.blog_detail.content}</p>
                     </div>
 
                 </div>
