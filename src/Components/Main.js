@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Logout from "./Auth/Logout";
 import { auth_check } from "../redux/authActionCreators";
 import MyUser from "./UserDetail/MyUser";
-import { blog_list } from "../redux/actionCreators";
 import BlogDetail from "./Blog/BlogDetail";
 
 const Main =()=>{
@@ -18,10 +17,8 @@ const Main =()=>{
     
     useEffect(()=>{
         dispatch(auth_check());
-        dispatch(blog_list());
     })
 
-    // const username = useSelector(state=>state.username);
     let roots = null;
     if(token===null){
         roots = (<Routes>

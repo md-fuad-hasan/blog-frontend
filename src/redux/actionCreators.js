@@ -69,3 +69,35 @@ export const blog_detail = (slug,token) =>dispatch=>{
             console.log(err);
         })
 }
+
+const delete_blog =()=>{
+    return{
+        type: actionTypes.DELETE_BLOG,
+    }
+}
+
+export const delete_blog_done =()=>{
+    return{
+        type: actionTypes.DELETE_BLOG_DONE,
+    }
+}
+
+
+export const delete_post = (slug,token) =>dispatch=>{
+    const url = `http://127.0.0.1:8000/api/blog/blog-detail/${slug}`
+        const header = {
+            headers:{
+                "Content-Type": "multipart/form-data",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+
+        axios.delete(url,header)
+            .then(res=>{
+                dispatch(delete_blog());
+                console.log(res);
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+}

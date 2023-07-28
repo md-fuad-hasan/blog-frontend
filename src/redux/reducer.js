@@ -10,7 +10,8 @@ const INITIAL_STATE = {
     profile_pic: null,
     blog_list: [],
     user_blog_list: [],
-    blog_detail_data: null
+    blog_detail_data: null,
+    delete_blog_msg: false,
 }
 
 
@@ -71,6 +72,16 @@ export const reducer = (state=INITIAL_STATE, action)=>{
             return{
                 ...state,
                 blog_detail_data: action.payload
+            }
+        case actionTypes.DELETE_BLOG:
+            return{
+                ...state,
+                delete_blog_msg : true
+            }
+        case actionTypes.DELETE_BLOG_DONE:
+            return{
+                ...state,
+                delete_blog_msg : false
             }
        
         default:

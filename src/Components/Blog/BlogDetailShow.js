@@ -1,33 +1,26 @@
 import React from "react";
 import date from 'date-and-time';
-import { useSelector } from "react-redux";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { delete_blog_done, delete_post } from "../../redux/actionCreators";
 
 const BlogDetailShow = (props) =>{
     const username = useSelector(state=>state.username);
     const token = useSelector(state=>state.token)
+    const delete_blog_msg = useSelector(state=>state.delete_blog_msg);
+    const dispatch = useDispatch()
+
     let update_date = props.blog_detail.update_date;
     update_date = new Date(update_date);
     update_date = date.format(update_date, 'MMMM DD, YYYY');
 
-    const deleteBlog=()=>{
-        const url = `http://127.0.0.1:8000/api/blog/blog-detail/${props.blog_detail.slug}`
-        const header = {
-            headers:{
-                "Content-Type": "multipart/form-data",
-                "Authorization": `Bearer ${token}`
-            }
-        }
+    if(delete_blog_msg){
+        dispatch(delete_blog_done());
+        window.history.back();
+    }
 
-        axios.delete(url,header)
-            .then(res=>{
-                console.log(res);
-                window.history.back();
-                
-            })
-            .catch(err=>{
-                console.log(err);
-            })
+    const deleteBlog=()=>{
+        dispatch(delete_post( props.blog_detail.slug,token));
+ 
     }
 
 
@@ -46,7 +39,7 @@ const BlogDetailShow = (props) =>{
                         <div className="d-flex justify-content-center">
                             <h4>by {props.blog_detail.author_name} | {update_date}</h4>
                             {
-                                (props.blog_detail.author_name==username)?
+                                (props.blog_detail.author_name===username)?
                                 <button className="btn btn-danger ms-2" onClick={deleteBlog}>Delete</button>:
                                 null
                             }

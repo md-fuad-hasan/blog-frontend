@@ -8,3 +8,6 @@ export const PROFILE_DETAIL = 'PROFILE_DETAIL';
 export const BLOG_LIST = 'BLOG_LIST';
 export const USER_BLOG_LIST = 'USER_BLOG_LIST';
 export const BLOG_DETAIL = 'BLOG_DETAIL';
+export const DELETE_BLOG = 'DELETE_BLOG';
+export const DELETE_BLOG_DONE = 'DELETE_BLOG_DONE';
+export const UPDATE_BLOG = 'UPDATE_BLOG';

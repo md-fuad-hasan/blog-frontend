@@ -1,35 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import date from 'date-and-time';
-import { useSelector } from "react-redux";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import { delete_blog_done, delete_post } from "../../redux/actionCreators";
 
 const Blog = (props)=>{
+    const [modal,setModal] = useState(false);
     const username = useSelector(state=>state.username);
     const token = useSelector(state=>state.token);
+    const delete_blog_msg = useSelector(state=>state.delete_blog_msg);
+    const dispatch = useDispatch();
+
     let update_date = props.update_date;
-    update_date = new Date(update_date).toDateString();
+    update_date = new Date(update_date);
+    update_date = date.format(update_date, 'MMMM DD, YYYY');
+
     
-
-    const deleteBlog=()=>{
-        const url = `http://127.0.0.1:8000/api/blog/blog-detail/${props.slug}`
-        const header = {
-            headers:{
-                "Content-Type": "multipart/form-data",
-                "Authorization": `Bearer ${token}`
-            }
-        }
-
-        axios.delete(url,header)
-            .then(res=>{
-                console.log(res);
-                window.location.reload(true);
-            })
-            .catch(err=>{
-                console.log(err);
-            })
+    if(delete_blog_msg){
+        dispatch(delete_blog_done());
+        window.location.reload(true);
     }
 
+    const deleteBlog=()=>{
+        dispatch(delete_post(props.slug,token));
+
+        
+    }
+
+    const toggle = () =>setModal(!modal);
 
     return(
         <div>
@@ -43,8 +42,24 @@ const Blog = (props)=>{
                         <h5>by {props.author} | {update_date}</h5>
                         
                         {
-                            (props.author==username)?
-                            <button className="btn btn-danger ms-2" onClick={deleteBlog}>Delete</button>:
+                            (props.author===username)?
+                            <div><button className="btn btn-danger ms-2" onClick={deleteBlog}>Delete</button>
+                            <button className="btn btn-info ms-2" onClick={toggle}>Edit</button>
+                            <Modal isOpen={modal}>
+                                <ModalHeader toggle={toggle}>
+                                    Edit the Post
+                                </ModalHeader>
+                                <ModalBody>
+
+                                </ModalBody>
+                                <ModalFooter>
+
+                                </ModalFooter>
+                            </Modal>
+                            
+                            
+                            
+                            </div>:
                             null
                         }
                     </div>
