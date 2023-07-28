@@ -2,6 +2,7 @@ import React from "react";
 import date from 'date-and-time';
 import { useDispatch, useSelector } from "react-redux";
 import { delete_blog_done, delete_post } from "../../redux/actionCreators";
+import BlogUpdate from "./BlogUpdate";
 
 const BlogDetailShow = (props) =>{
     const username = useSelector(state=>state.username);
@@ -36,11 +37,13 @@ const BlogDetailShow = (props) =>{
                     <div className="mx-auto text-center  my-5">
                         <h1>{props.blog_detail.blog_title}</h1>
                         
-                        <div className="d-flex justify-content-center">
+                        <div className="d-md-flex justify-content-center">
                             <h4>by {props.blog_detail.author_name} | {update_date}</h4>
                             {
                                 (props.blog_detail.author_name===username)?
-                                <button className="btn btn-danger ms-2" onClick={deleteBlog}>Delete</button>:
+                                <div><button className="btn btn-danger" onClick={deleteBlog}>Delete</button>
+                                <BlogUpdate slug={props.blog_detail.slug}/>
+                                </div>:
                                 null
                             }
                            

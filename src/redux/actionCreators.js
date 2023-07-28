@@ -62,7 +62,6 @@ export const blog_detail = (slug,token) =>dispatch=>{
 
     axios.get(url,header)
         .then(res=>{
-            console.log(res.data);
             dispatch(blog_detail_show(res.data));
         })
         .catch(err=>{
@@ -96,6 +95,26 @@ export const delete_post = (slug,token) =>dispatch=>{
             .then(res=>{
                 dispatch(delete_blog());
                 console.log(res);
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+}
+
+
+
+export const update_post = (slug,token,data) =>dispatch=>{
+    const url = `http://127.0.0.1:8000/api/blog/blog-detail/${slug}`
+        const header = {
+            headers:{
+                "Content-Type": "multipart/form-data",
+                "Authorization": `Bearer ${token}`
+            }
+        }
+
+        axios.patch(url,data,header)
+            .then(res=>{
+                dispatch(delete_blog());
             })
             .catch(err=>{
                 console.log(err);

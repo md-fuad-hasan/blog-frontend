@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import date from 'date-and-time';
 import { useDispatch, useSelector } from "react-redux";
-import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import { delete_blog_done, delete_post } from "../../redux/actionCreators";
+import BlogUpdate from "./BlogUpdate";
 
 const Blog = (props)=>{
-    const [modal,setModal] = useState(false);
     const username = useSelector(state=>state.username);
     const token = useSelector(state=>state.token);
     const delete_blog_msg = useSelector(state=>state.delete_blog_msg);
@@ -28,7 +27,6 @@ const Blog = (props)=>{
         
     }
 
-    const toggle = () =>setModal(!modal);
 
     return(
         <div>
@@ -38,27 +36,13 @@ const Blog = (props)=>{
                 </div>
                 <div className="col-md-8">
                     <h1>{props.title}</h1>
-                    <div className="d-flex">
-                        <h5>by {props.author} | {update_date}</h5>
+                    <div className="d-md-flex">
+                        <h5 className="me-2">by {props.author} | {update_date}</h5>
                         
                         {
                             (props.author===username)?
-                            <div><button className="btn btn-danger ms-2" onClick={deleteBlog}>Delete</button>
-                            <button className="btn btn-info ms-2" onClick={toggle}>Edit</button>
-                            <Modal isOpen={modal}>
-                                <ModalHeader toggle={toggle}>
-                                    Edit the Post
-                                </ModalHeader>
-                                <ModalBody>
-
-                                </ModalBody>
-                                <ModalFooter>
-
-                                </ModalFooter>
-                            </Modal>
-                            
-                            
-                            
+                            <div><button className="btn btn-danger" onClick={deleteBlog}>Delete</button>
+                            <BlogUpdate slug={props.slug}/>
                             </div>:
                             null
                         }

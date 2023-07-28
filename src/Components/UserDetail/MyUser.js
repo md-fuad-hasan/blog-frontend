@@ -56,7 +56,7 @@ const MyUser = () =>{
     const handleImage=(e)=>{
         blogImage = e.target.files[0];
 
-        isImage = isFileImage(blogImage)
+        isImage = isFileImage(blogImage);
 
         
     }
