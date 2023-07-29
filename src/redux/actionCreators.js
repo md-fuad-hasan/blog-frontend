@@ -114,7 +114,8 @@ export const update_post = (slug,token,data) =>dispatch=>{
 
         axios.patch(url,data,header)
             .then(res=>{
-                dispatch(delete_blog());
+                // dispatch(delete_blog());
+                
             })
             .catch(err=>{
                 console.log(err);

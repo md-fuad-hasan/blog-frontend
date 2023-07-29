@@ -6,6 +6,7 @@ import { Button, Modal, ModalBody, ModalHeader } from "reactstrap";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import axios from "axios";
 import { user_blog_list as user_blog_post,blog_list } from "../../redux/actionCreators";
+import ProfileUpdate from "./ProfileUpdate";
 
 
 
@@ -83,13 +84,13 @@ const MyUser = () =>{
                     
                         <p>{bio}</p>
                         <div className="text-center">
-                            <button className="btn btn-secondary w-50 ">Edit Profile</button>
+                            <ProfileUpdate />
                         </div>
                         <br />
                         <div>
                             <Button color="primary" onClick={toggle} className="btn w-100">Create a Post</Button>
                             <Modal isOpen={modal} centered={true}>
-                                <ModalHeader toggle={toggle} >
+                                <ModalHeader toggle={toggle} cssModule={{'modal-title': 'w-100 text-center'}}>
                                     Create Post         
                                 </ModalHeader>
                                 <ModalBody>

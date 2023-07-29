@@ -68,7 +68,7 @@ const BlogUpdate = (props) =>{
         <div className="d-inline">
             <button className="btn btn-info ms-2" onClick={toggle}>Edit</button>
                             <Modal isOpen={modal}>
-                                <ModalHeader toggle={toggle}>
+                                <ModalHeader toggle={toggle} cssModule={{'modal-title': 'w-100 text-center'}}>
                                     Edit the Post
                                 </ModalHeader>
                                 <ModalBody>

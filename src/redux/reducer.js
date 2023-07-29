@@ -12,6 +12,7 @@ const INITIAL_STATE = {
     user_blog_list: [],
     blog_detail_data: null,
     delete_blog_msg: false,
+    profile_update_msg : false,
 }
 
 
@@ -46,7 +47,10 @@ export const reducer = (state=INITIAL_STATE, action)=>{
                 fullname: null,
                 profile_pic: null,
                 user_blog_list: [],
-                blog_detail_data: null
+                blog_detail_data: null,
+                delete_blog_msg: false,
+                profile_update_msg : false,
+
 
             }
         
@@ -83,7 +87,19 @@ export const reducer = (state=INITIAL_STATE, action)=>{
                 ...state,
                 delete_blog_msg : false
             }
+        
+        case actionTypes.PROFILE_UPDATE:
+            return{
+                ...state,
+                profile_update_msg: true
+            }
        
+        case actionTypes.PROFILE_UPDATE_END:
+            return{
+                ...state,
+                profile_update_msg: false
+            }
+
         default:
             return state
     }
