@@ -5,14 +5,13 @@ const INITIAL_STATE = {
     userId : null,
     username : null,
     signupSuccess : false,
-    bio: null,
-    fullname: null,
+    bio: '',
+    fullname: '',
     profile_pic: null,
     blog_list: [],
     user_blog_list: [],
     blog_detail_data: null,
     delete_blog_msg: false,
-    profile_update_msg : false,
 }
 
 
@@ -49,7 +48,6 @@ export const reducer = (state=INITIAL_STATE, action)=>{
                 user_blog_list: [],
                 blog_detail_data: null,
                 delete_blog_msg: false,
-                profile_update_msg : false,
 
 
             }
@@ -86,18 +84,6 @@ export const reducer = (state=INITIAL_STATE, action)=>{
             return{
                 ...state,
                 delete_blog_msg : false
-            }
-        
-        case actionTypes.PROFILE_UPDATE:
-            return{
-                ...state,
-                profile_update_msg: true
-            }
-       
-        case actionTypes.PROFILE_UPDATE_END:
-            return{
-                ...state,
-                profile_update_msg: false
             }
 
         default:

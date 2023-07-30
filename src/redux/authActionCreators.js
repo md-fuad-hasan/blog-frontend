@@ -170,17 +170,6 @@ export const auth_check =()=>dispatch=>{
     }
 }
 
-export const profile_update_done = () =>{
-    return{
-        type: actionTypes.PROFILE_UPDATE,
-    }
-}
-export const profile_update_end = () =>{
-    return{
-        type: actionTypes.PROFILE_UPDATE_END,
-    }
-}
-
 
 export const profile_update= (userId,token,data)=>dispatch=>{
     const url = `http://127.0.0.1:8000/api/account-detail/${userId}/`;
@@ -191,8 +180,7 @@ export const profile_update= (userId,token,data)=>dispatch=>{
     }
     axios.patch(url,data,header)
         .then(res=>{
-            dispatch(profile_update_done());
-            
+            // console.log(res);
         })
         .catch(err=>{
             console.log(err);

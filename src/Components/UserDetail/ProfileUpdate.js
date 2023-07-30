@@ -1,7 +1,7 @@
 import React, { useEffect, useState }from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
-import { profile_detail, profile_update, profile_update_end } from "../../redux/authActionCreators";
+import { profile_detail, profile_update, profile_update_done, profile_update_end } from "../../redux/authActionCreators";
 
 
 const ProfileUpdate = (props) =>{
@@ -35,17 +35,16 @@ const ProfileUpdate = (props) =>{
         setBio(user_bio);
  
     }
-    let data = new FormData();
 
     function handleFullname(e){
         setFullname(e.target.value);
-        data.append('fullname',fullname);
+        
 
     }
 
     function handleBio(e){
         setBio(e.target.value);
-        data.append('bio',bio);
+        
 
     }
 
@@ -53,20 +52,24 @@ const ProfileUpdate = (props) =>{
     function handleImage(e){
         proImage = e.target.files[0];
         isImage = isFileImage(proImage);
-        if(isImage){
-            data.append('profile_pic',proImage);
-        }
+        
 
     }
 
     function handleSubmit(e){
-        
-        dispatch(profile_update(userId,token,data));
-        setTimeout(()=>{
-            window.location.reload(true);
+        let data = new FormData();
+        data.append('fullname',fullname);
+        console.log(fullname);
+        data.append('bio',bio);
+        console.log(bio);
+        if(isImage){
+            data.append('profile_pic',proImage);
+            console.log(proImage);
+        }
 
-        },1000)
-       
+        dispatch(profile_update(userId,token,data));
+
+        window.location.reload(true);
         e.preventDefault();
 
     }
