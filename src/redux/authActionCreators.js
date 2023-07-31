@@ -40,31 +40,7 @@ export const profile_detail=(userId,token)=>dispatch=>{
     
 }
 
-const login_success=(token, userId,username)=>{
 
-    
-
-    return {
-        type: actionTypes.LOGIN_SUCCESS,
-        payload: {
-            token: token,
-            userId: userId,
-            username: username,
-        }
-    }
-}
-
-const signup_success=()=>{
-    return{
-        type: actionTypes.SIGNUP_SUCCESS
-    }
-}
-
-export const signup_finished=()=>{
-    return{
-        type: actionTypes.SIGNUP_FINISHED
-    }
-}
 
 
 
@@ -83,6 +59,17 @@ const store_locally = (token,username)=>{
 }
 
 
+const signup_success=()=>{
+    return{
+        type: actionTypes.SIGNUP_SUCCESS
+    }
+}
+
+export const signup_finished=()=>{
+    return{
+        type: actionTypes.SIGNUP_FINISHED
+    }
+}
 
 export const signup_user = (email,username,password) =>dispatch=>{
     const url = 'http://127.0.0.1:8000/api/signup/';
@@ -108,9 +95,33 @@ export const signup_user = (email,username,password) =>dispatch=>{
 }
 
 
+
+const login_success=(token, userId,username)=>{
+
+    
+
+    return {
+        type: actionTypes.LOGIN_SUCCESS,
+        payload: {
+            token: token,
+            userId: userId,
+            username: username,
+        }
+    }
+}
+
+export const login_error=(data)=>{
+    return{
+        type: actionTypes.LOGIN_ERROR,
+        payload: {
+            loginErr : data,
+        }
+    }
+}
+
 export const login_user = (username,password) =>dispatch=> {
 
-    const url = 'http://127.0.0.1:8000/api/login/';
+    const url = 'http://127.0.0.1:8000/api/logi/';
     const data = {
         username:username,
         password:password
@@ -134,6 +145,18 @@ export const login_user = (username,password) =>dispatch=> {
         })
         .catch(err=>{
             console.log(err);
+            
+            if(err.message === "Network Error"){
+                dispatch(login_error('Network error'));
+            }else if(err.message === "Request failed with status code 400"){
+                dispatch(login_error(err.response.data.non_field_errors[0]));
+            }else if(err.message === "Request failed with status code 404"){
+                dispatch(login_error("404 not Found"));
+            }else{
+                dispatch(login_error(err.message));
+
+            }
+            
         })
 
        

@@ -5,9 +5,11 @@ import { Link,  } from "react-router-dom";
 
 import { useDispatch, useSelector, } from "react-redux";
 import { login_user, signup_finished } from "../../redux/authActionCreators";
+import LoginError from "../ErrorMsgShow/LoginError";
 
 const Login = ()=>{
     const dispatch = useDispatch();
+    const loginErr = useSelector(state=>state.loginErr);
     const signupSuccess = useSelector(state=>state.signupSuccess);
     if(signupSuccess){
         dispatch(signup_finished())
@@ -17,7 +19,11 @@ const Login = ()=>{
     return(
         
             
-            <div className="all-form">
+            <div className="all-form pt-2">
+                <div>
+                    {
+                       (loginErr)? <LoginError loginErr={loginErr} />:null
+                    } 
             <Formik
                 initialValues={{
                    
@@ -37,7 +43,7 @@ const Login = ()=>{
                   }}
                 onSubmit={(values)=>{
                     dispatch(login_user(values.username, values.password));
-
+                    
                 }}
             
             >
@@ -60,6 +66,8 @@ const Login = ()=>{
                 )
             }
             </Formik>
+
+            </div>
             </div>
       
        

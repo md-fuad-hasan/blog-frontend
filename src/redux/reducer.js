@@ -12,6 +12,7 @@ const INITIAL_STATE = {
     user_blog_list: [],
     blog_detail_data: null,
     delete_blog_msg: false,
+    loginErr: null,
 }
 
 
@@ -34,7 +35,13 @@ export const reducer = (state=INITIAL_STATE, action)=>{
                 token: action.payload.token,
                 userId: action.payload.userId,
                 username: action.payload.username,
+                loginErr: null
                
+            }
+        case actionTypes.LOGIN_ERROR:
+            return{
+                ...state,
+                loginErr : action.payload.loginErr
             }
         case actionTypes.LOGOUT_SUCCESS:
             return{
@@ -63,7 +70,8 @@ export const reducer = (state=INITIAL_STATE, action)=>{
         case actionTypes.BLOG_LIST:
             return{
                 ...state,
-                blog_list: action.payload
+                blog_list: action.payload,
+                loginErr: null
             }
         case actionTypes.USER_BLOG_LIST:
             return{

@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik, Form, Field,ErrorMessage } from "formik";
 import './Login.css';
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { signup_user } from "../../redux/authActionCreators";
+import { login_error, signup_user } from "../../redux/authActionCreators";
 
 const Signup = ()=>{
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const signupSuccess = useSelector(state=>state.signupSuccess);
+    useEffect(()=>{
+        dispatch(login_error(null))
+    },[]);
     if(signupSuccess){
         navigate('/login');
     }

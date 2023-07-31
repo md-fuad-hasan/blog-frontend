@@ -4,6 +4,8 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const PROFILE_DETAIL = 'PROFILE_DETAIL';
 
+export const LOGIN_ERROR = 'LOGIN_ERROR';
+
 
 export const BLOG_LIST = 'BLOG_LIST';
 export const USER_BLOG_LIST = 'USER_BLOG_LIST';
