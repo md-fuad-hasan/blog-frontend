@@ -4,20 +4,47 @@ import './Login.css';
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login_error, signup_user } from "../../redux/authActionCreators";
+import LoginError from "../ErrorMsgShow/LoginError";
 
 const Signup = ()=>{
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const signupSuccess = useSelector(state=>state.signupSuccess);
+    const signupErr = useSelector(state => state.signupErr);
+
     useEffect(()=>{
         dispatch(login_error(null))
     },[]);
     if(signupSuccess){
         navigate('/login');
     }
+
+    let msg = null;
+    let msgArray = [];
+    if(signupErr){
+        if(typeof signupErr === 'object'){
+            for(const property in signupErr){
+                msgArray.push(signupErr[property]);
+             }
+             msg = msgArray.map(err=>{
+                
+                return <LoginError errMsg = {err}/> 
+             })
+        }
+        else{
+            msg = <LoginError errMsg = {signupErr} />
+        }
+        
+    }
+
+
     return(
         <div>
-             <div className="all-form">
+             <div className="all-form pt-2">
+                <div>
+                    {
+                        (signupErr)?msg:null
+                    }
             <Formik
                 initialValues={{
                     email:'',
@@ -43,9 +70,10 @@ const Signup = ()=>{
                     if(values.password!==values.confirmedPassword){
                         errors.confirmedPassword = "Passwod don't matched"
                     }
+                    
                     return errors;
                   }}
-                onSubmit={(values)=>{
+                onSubmit={(values,errors)=>{
                         
                     dispatch(signup_user(values.email, values.username, values.password));
                 }}
@@ -75,6 +103,7 @@ const Signup = ()=>{
                 )
             }
             </Formik>
+            </div>
             </div>
         </div>
     );

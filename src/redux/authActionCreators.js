@@ -71,6 +71,13 @@ export const signup_finished=()=>{
     }
 }
 
+export const signup_error = msg =>{
+    return{
+        type: actionTypes.SIGNUP_ERROR,
+        payload: msg
+    }
+}
+
 export const signup_user = (email,username,password) =>dispatch=>{
     const url = 'http://127.0.0.1:8000/api/signup/';
     const data = {
@@ -91,6 +98,11 @@ export const signup_user = (email,username,password) =>dispatch=>{
         })
         .catch(err=>{
             console.log(err);
+            if(err.message==="Request failed with status code 400"){
+                dispatch(signup_error(err.response.data));
+            }else{
+                dispatch(signup_error("Something went wrong !"));
+            }
         })
 }
 
@@ -121,7 +133,7 @@ export const login_error=(data)=>{
 
 export const login_user = (username,password) =>dispatch=> {
 
-    const url = 'http://127.0.0.1:8000/api/logi/';
+    const url = 'http://127.0.0.1:8000/api/login/';
     const data = {
         username:username,
         password:password
@@ -144,16 +156,12 @@ export const login_user = (username,password) =>dispatch=> {
             
         })
         .catch(err=>{
-            console.log(err);
+
             
-            if(err.message === "Network Error"){
-                dispatch(login_error('Network error'));
-            }else if(err.message === "Request failed with status code 400"){
+            if(err.message === "Request failed with status code 400"){
                 dispatch(login_error(err.response.data.non_field_errors[0]));
-            }else if(err.message === "Request failed with status code 404"){
-                dispatch(login_error("404 not Found"));
             }else{
-                dispatch(login_error(err.message));
+                dispatch(login_error("Something went wrong!"));
 
             }
             

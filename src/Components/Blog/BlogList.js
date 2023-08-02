@@ -2,12 +2,14 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { blog_list as blog_post } from "../../redux/actionCreators";
 import Blog from "./Blog";
+import { signup_error } from "../../redux/authActionCreators";
 
 const BlogList = ()=>{
     const blog_list = useSelector(state=>state.blog_list);
     const dispatch = useDispatch();
     useEffect(()=>{
         dispatch(blog_post());
+        dispatch(signup_error(null));
     },[])
 
     let blog =null;

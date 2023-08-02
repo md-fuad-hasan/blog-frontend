@@ -5,6 +5,7 @@ export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const PROFILE_DETAIL = 'PROFILE_DETAIL';
 
 export const LOGIN_ERROR = 'LOGIN_ERROR';
+export const SIGNUP_ERROR = 'SIGNUP_ERROR';
 
 
 export const BLOG_LIST = 'BLOG_LIST';

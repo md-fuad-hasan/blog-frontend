@@ -1,16 +1,23 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import './Login.css';
 import { Link,  } from "react-router-dom";
 
 import { useDispatch, useSelector, } from "react-redux";
-import { login_user, signup_finished } from "../../redux/authActionCreators";
+import { login_user, signup_error, signup_finished } from "../../redux/authActionCreators";
 import LoginError from "../ErrorMsgShow/LoginError";
+
+
 
 const Login = ()=>{
     const dispatch = useDispatch();
     const loginErr = useSelector(state=>state.loginErr);
     const signupSuccess = useSelector(state=>state.signupSuccess);
+
+    useEffect(()=>{
+        dispatch(signup_error(null))
+    },[]);
+
     if(signupSuccess){
         dispatch(signup_finished())
     }
@@ -22,7 +29,7 @@ const Login = ()=>{
             <div className="all-form pt-2">
                 <div>
                     {
-                       (loginErr)? <LoginError loginErr={loginErr} />:null
+                       (loginErr)? <LoginError errMsg={loginErr} />:null
                     } 
             <Formik
                 initialValues={{

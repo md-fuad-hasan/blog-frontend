@@ -58,7 +58,7 @@ const BlogUpdate = (props) =>{
         }
         
         dispatch(update_post(props.slug,token,data));
-        window.location.reload(true);
+        // window.location.reload(true);
         e.preventDefault();
 
     }

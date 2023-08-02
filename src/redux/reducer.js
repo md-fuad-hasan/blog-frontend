@@ -13,6 +13,7 @@ const INITIAL_STATE = {
     blog_detail_data: null,
     delete_blog_msg: false,
     loginErr: null,
+    signupErr: null,
 }
 
 
@@ -21,13 +22,21 @@ export const reducer = (state=INITIAL_STATE, action)=>{
         case actionTypes.SIGNUP_SUCCESS:
             return{
                 ...state,
-                signupSuccess : true
+                signupSuccess : true,
+                signupErr: null,
             }
         case actionTypes.SIGNUP_FINISHED:
             return{
                 ...state,
                 signupSuccess: false
             }
+
+        case actionTypes.SIGNUP_ERROR:
+            return{
+                ...state,
+                signupErr : action.payload
+            }
+
         case actionTypes.LOGIN_SUCCESS:
             
             return{
@@ -35,7 +44,8 @@ export const reducer = (state=INITIAL_STATE, action)=>{
                 token: action.payload.token,
                 userId: action.payload.userId,
                 username: action.payload.username,
-                loginErr: null
+                loginErr: null,
+                signupErr: null,
                
             }
         case actionTypes.LOGIN_ERROR:
